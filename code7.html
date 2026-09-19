@@ -1,0 +1,214 @@
+<!--The code for the website-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio Website</title>
+
+
+
+
+
+
+
+  <!--The javascript code for the styling of the buttons-->
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #1f2937;
+      background: #f4f7fb;
+    }
+
+    header {
+      padding: 1.25rem;
+      color: white;
+      text-align: center;
+      background: #1e3a5f;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 1rem;
+      background: white;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+    }
+
+    .tab-button {
+      border: 0;
+      border-radius: 0.4rem;
+      padding: 0.75rem 1.25rem;
+      color: #1e3a5f;
+      background: transparent;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .tab-button:hover,
+    .tab-button:focus-visible {
+      background: #e6eef7;
+    }
+
+    .tab-button.active {
+      color: white;
+      background: #2563eb;
+    }
+
+    main {
+      width: min(900px, calc(100% - 2rem));
+      min-height: 300px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 0.75rem;
+      background: white;
+      box-shadow: 0 4px 18px rgb(0 0 0 / 8%);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<!--html code for the tabs/buttons and the website-->
+<body>
+  <header>
+    <h1>My Portfolio</h1>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Portfolio pages">
+    <button class="tab-button active" id="home-tab" role="tab" aria-selected="true" aria-controls="home" data-tab="home">Home</button>
+    <button class="tab-button" id="about-tab" role="tab" aria-selected="false" aria-controls="about" data-tab="about">About</button>
+    <button class="tab-button" id="projects-tab" role="tab" aria-selected="false" aria-controls="projects" data-tab="projects">Projects</button>
+    <button class="tab-button" id="resume-tab" role="tab" aria-selected="false" aria-controls="resume" data-tab="resume">Resume</button>
+    <button class="tab-button" id="contact-tab" role="tab" aria-selected="false" aria-controls="contact" data-tab="contact">Contact</button>
+  </nav>
+
+  <!--The home section-->
+  <main>
+    <section class="tab-content active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <h2>Home</h2>
+      <p>Welcome to my portfolio website. This website showcases my resume, skills, and speak about my experiences.</p>
+    </section>
+
+    <!--The about section-->
+    <section class="tab-content" id="about" role="tabpanel" aria-labelledby="about-tab" hidden>
+      <h2>About</h2>
+      <p>My name is Gabriell Lee and I am currently in my senior year of University majoring in computer technology.
+        I am twenty-three years of age and am skilled in the Java and Python programming languages.
+        I have done multiple projects in java and only one in python throughout my studies in University. 
+      </p>
+    </section>
+
+    <!--the place to upload and show off my projects-->
+    <section class="tab-content" id="projects" role="tabpanel" aria-labelledby="projects-tab" hidden>
+      <h2>Projects</h2>
+      <p>I unfortunately do not have access to myb other projects currently.</p>
+    </section>
+
+    <!--the section to upload my resume-->
+    <section class="tab-content" id="resume" role="tabpanel" aria-labelledby="resume-tab" hidden>
+      <h2>Resume</h2>
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+<div>
+  <input type="file" id="resumeFile" accept=".pdf,.doc,.docx">
+
+  <button type="button" id="viewResume">View Resume</button>
+  <button type="button" id="downloadResume">Download Resume</button>
+</div>
+
+<script>
+const fileInput = document.getElementById("resumeFile");
+const viewBtn = document.getElementById("viewResume");
+const downloadBtn = document.getElementById("downloadResume");
+
+viewBtn.onclick = () => {
+  const file = fileInput.files[0];
+  if (!file) return alert("Please upload your resume first.");
+
+  const url = URL.createObjectURL(file);
+  window.open(url, "_blank");
+}
+
+downloadBtn.onclick = () => {
+  const file = fileInput.files[0];
+  if (!file) return alert("Please upload your resume first.");
+
+  const url = URL.createObjectURL(file);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = file.name;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+</script>
+
+
+    </section>
+
+    <section class="tab-content" id="contact" role="tabpanel" aria-labelledby="contact-tab" hidden>
+      <h2>Contact</h2>
+      <p>My email address: gabby.lee7665@gmail.com</p>
+       <p>My phone number: 240-520-8610</p>
+    </section>
+  </main>
+
+  <!--Script that makes the buttons work-->
+  <script>
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selectedTab = button.dataset.tab;
+
+        tabButtons.forEach((tabButton) => {
+          const isSelected = tabButton === button;
+          tabButton.classList.toggle('active', isSelected);
+          tabButton.setAttribute('aria-selected', String(isSelected));
+        });
+
+        tabContents.forEach((content) => {
+          const isSelected = content.id === selectedTab;
+          content.classList.toggle('active', isSelected);
+          content.hidden = !isSelected;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
